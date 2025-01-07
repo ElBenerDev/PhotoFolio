@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- AOS Library -->
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"> -->
+  <!-- Swiper Library -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Crear cuenta - PhotoFolio</title>
+  <link href="assets/css/main.css" rel="stylesheet">
+  <style>
+    /* Integrando el CSS proporcionado */
+    :root {
+      --default-font: "Roboto", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      --heading-font: "Cardo", sans-serif;
+      --nav-font: "Inter", sans-serif;
+      --background-color: #ffffff; /* Cambié el fondo a blanco para visibilidad */
+      --default-color: #fafafa;
+      --heading-color: #ffffff;
+      --accent-color: #27a776;
+      --surface-color: #1a1a1a;
+      --contrast-color: #ffffff;
+    }
+
+    body {
+      font-family: var(--default-font);
+      background-color: var(--background-color);
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .register-container {
+      background-color: var(--surface-color);
+      color: var(--contrast-color);
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .register-container h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      font-family: var(--heading-font);
+      color: var(--heading-color);
+    }
+
+    .form-label {
+      font-weight: bold;
+      color: var(--contrast-color);
+    }
+
+    .form-control {
+      margin-bottom: 15px;
+      padding: 10px;
+      width: 100%;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      box-sizing: border-box;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    .login-link {
+      display: block;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .login-link a {
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body class="register-page">
+
+  <main class="main">
+    <div class="register-container" data-aos="fade-up">
+      <h2>Crear cuenta</h2>
+      <form id="register-form">
+        <div class="mb-3">
+          <label for="name" class="form-label">Nombre completo</label>
+          <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Correo electrónico</label>
+          <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña</label>
+          <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn">Crear cuenta</button>
+      </form>
+      <div class="login-link">
+        <p>¿Ya tienes una cuenta? <a href="login.html">Inicia sesión aquí</a></p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+
+  <!-- AOS Library -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <!-- Swiper Library -->
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+  <script>
+    // Configuración de Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyAwztkMXlDiwxGycs1Yy2CqOALqXnONuxs",
+      authDomain: "photofolio-cadf9.firebaseapp.com",
+      projectId: "photofolio-cadf9",
+      storageBucket: "photofolio-cadf9.firebasestorage.app",
+      messagingSenderId: "102949490418",
+      appId: "1:102949490418:web:c6f98ae8f22c746c164a6b"
+    };
+
+    // Inicializar Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Manejo del formulario de registro
+    const registerForm = document.getElementById('register-form');
+    registerForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      console.log("Formulario enviado");
+      console.log("Datos del formulario:", name, email, password);
+
+      auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          console.log('Usuario creado:', userCredential.user);
+          window.location.href = 'login.html'; // Redirige al login
+        })
+        .catch((error) => {
+          console.error('Error al crear cuenta:', error);
+          alert('Error al crear cuenta. Intenta de nuevo.');
+        });
+    });
+  </script>
+</body>
+
+</html>

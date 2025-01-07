@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Iniciar sesión - PhotoFolio</title>
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <style>
+    :root {
+      --default-font: "Roboto", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --heading-font: "Cardo", serif;
+      --background-color: #000000;
+      --default-color: #fafafa;
+      --heading-color: #ffffff;
+      --accent-color: #27a776;
+      --surface-color: #1a1a1a;
+      --contrast-color: #ffffff;
+    }
+
+    body {
+      font-family: var(--default-font);
+      background-color: var(--background-color);
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .login-container {
+      background-color: var(--surface-color);
+      color: var(--contrast-color);
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .login-container h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      font-family: var(--heading-font);
+      color: var(--heading-color);
+    }
+
+    .form-label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 8px;
+      text-align: left;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      box-sizing: border-box;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background-color: var(--accent-color);
+      color: var(--contrast-color);
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #1d705e;
+    }
+
+    .register-link {
+      margin-top: 10px;
+    }
+
+    .register-link a {
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+
+    .register-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div class="login-container" data-aos="fade-up">
+      <h2>Iniciar sesión</h2>
+      <form id="login-form">
+        <div class="mb-3">
+          <label for="email" class="form-label">Correo electrónico</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="example@mail.com" required>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña</label>
+          <input type="password" class="form-control" id="password" name="password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn">Iniciar sesión</button>
+      </form>
+      <div class="register-link">
+        <p>¿No tienes una cuenta? <a href="register.html">Crea una aquí</a></p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+  <!-- AOS -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <!-- Swiper JS -->
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <!-- Main Script -->
+  <script>
+    // Configuración de Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyAwztkMXlDiwxGycs1Yy2CqOALqXnONuxs",
+      authDomain: "photofolio-cadf9.firebaseapp.com",
+      projectId: "photofolio-cadf9",
+      storageBucket: "photofolio-cadf9.firebasestorage.app",
+      messagingSenderId: "102949490418",
+      appId: "1:102949490418:web:c6f98ae8f22c746c164a6b"
+    };
+
+    // Inicializar Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Formulario de login
+    const loginForm = document.getElementById('login-form');
+    loginForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then(userCredential => {
+          console.log('Usuario logueado:', userCredential.user);
+          window.location.href = 'index.html';
+        })
+        .catch(error => {
+          console.error('Error al iniciar sesión:', error);
+          alert('Error al iniciar sesión. Intenta de nuevo.');
+        });
+    });
+
+    // AOS Animation
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+  </script>
+</body>
+
+</html>
