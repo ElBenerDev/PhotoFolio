@@ -1,9 +1,11 @@
-// assets/js/auth.js
+// auth.js
+
+// Escuchar cambios en el estado de autenticación
 firebase.auth().onAuthStateChanged((user) => {
     const loginRegisterDiv = document.querySelector('.header-login-register');
     
     if (user) {
-        // Usuario está logueado
+        // Usuario logueado - Mostrar menú de usuario
         loginRegisterDiv.innerHTML = `
             <div class="user-menu">
                 <button class="user-button">
@@ -18,36 +20,63 @@ firebase.auth().onAuthStateChanged((user) => {
             </div>
         `;
 
-        // Evento para cerrar sesión
+        // Configurar el botón de logout
         document.getElementById('logout-btn').addEventListener('click', (e) => {
             e.preventDefault();
-            firebase.auth().signOut().then(() => {
-                window.location.href = 'index.html';
-            }).catch((error) => {
-                console.error('Error al cerrar sesión:', error);
-            });
+            firebase.auth().signOut()
+                .then(() => {
+                    window.location.href = 'index.html';
+                })
+                .catch((error) => {
+                    console.error('Error al cerrar sesión:', error);
+                });
         });
 
-        // Toggle del menú dropdown
+        // Configurar el toggle del menú dropdown
         const userButton = document.querySelector('.user-button');
         const dropdownMenu = document.querySelector('.dropdown-menu');
         
-        userButton.addEventListener('click', (e) => {
-            e.stopPropagation();
-            dropdownMenu.classList.toggle('show');
-        });
+        if (userButton && dropdownMenu) {
+            userButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                dropdownMenu.classList.toggle('show');
+            });
 
-        // Cerrar dropdown al hacer clic fuera
-        document.addEventListener('click', (e) => {
-            if (!userButton.contains(e.target)) {
-                dropdownMenu.classList.remove('show');
-            }
-        });
+            // Cerrar el dropdown cuando se hace clic fuera
+            document.addEventListener('click', (e) => {
+                if (!userButton.contains(e.target)) {
+                    dropdownMenu.classList.remove('show');
+                }
+            });
+        }
     } else {
-        // Usuario no está logueado
+        // Usuario no logueado - Mostrar botones de login/registro
         loginRegisterDiv.innerHTML = `
             <a href="login.html" class="btn btn-primary">Log in</a>
             <a href="register.html" class="btn btn-secondary">Sign up</a>
         `;
     }
 });
+
+// Función auxiliar para manejar errores de autenticación
+function handleAuthError(error) {
+    console.error('Error de autenticación:', error);
+    let errorMessage = 'Ha ocurrido un error. Por favor, intenta de nuevo.';
+    
+    switch (error.code) {
+        case 'auth/invalid-email':
+            errorMessage = 'El correo electrónico no es válido.';
+            break;
+        case 'auth/user-disabled':
+            errorMessage = 'Esta cuenta ha sido deshabilitada.';
+            break;
+        case 'auth/user-not-found':
+            errorMessage = 'No existe una cuenta con este correo.';
+            break;
+        case 'auth/wrong-password':
+            errorMessage = 'Contraseña incorrecta.';
+            break;
+    }
+    
+    alert(errorMessage);
+}
