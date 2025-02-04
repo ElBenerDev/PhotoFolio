@@ -2,9 +2,13 @@
 firebase.auth().onAuthStateChanged((user) => {
     const loginRegisterDiv = document.querySelector('.header-login-register');
     const authElements = document.querySelectorAll('.auth-required');
-    
+    const authHideElements = document.querySelectorAll('.auth-hide');
+
     if (user) {
         // Usuario logueado - Mostrar menú de usuario y elementos auth-required
+        authHideElements.forEach(element => {
+            element.style.display = 'none';
+        });
         loginRegisterDiv.innerHTML = `
             <div class="user-menu">
                 <button class="user-button">
@@ -65,6 +69,10 @@ firebase.auth().onAuthStateChanged((user) => {
 
     } else {
         // Usuario no logueado - Mostrar botones de login/registro y ocultar elementos auth-required
+        authHideElements.forEach(element => {
+            element.style.display = '';
+        });
+        
         loginRegisterDiv.innerHTML = `
             <a href="login.html" class="btn btn-primary">Log in</a>
             <a href="register.html" class="btn btn-secondary">Sign up</a>

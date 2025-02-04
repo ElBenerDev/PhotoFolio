@@ -18,6 +18,14 @@ body.mobile-nav-active {
 }
 
 
+.auth-hide {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.auth-hide[style*="display: none"] {
+  opacity: 0;
+}
+
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
