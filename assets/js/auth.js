@@ -1,6 +1,4 @@
-// auth.js
-
-// Escuchar cambios en el estado de autenticación
+// Verificar estado de autenticación
 firebase.auth().onAuthStateChanged((user) => {
     const loginRegisterDiv = document.querySelector('.header-login-register');
     
@@ -21,18 +19,21 @@ firebase.auth().onAuthStateChanged((user) => {
         `;
 
         // Configurar el botón de logout
-        document.getElementById('logout-btn').addEventListener('click', (e) => {
-            e.preventDefault();
-            firebase.auth().signOut()
-                .then(() => {
-                    window.location.href = 'index.html';
-                })
-                .catch((error) => {
-                    console.error('Error al cerrar sesión:', error);
-                });
-        });
+        const logoutBtn = document.getElementById('logout-btn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                firebase.auth().signOut()
+                    .then(() => {
+                        window.location.href = 'index.html';
+                    })
+                    .catch((error) => {
+                        console.error('Error al cerrar sesión:', error);
+                    });
+            });
+        }
 
-        // Configurar el toggle del menú dropdown
+        // Configurar el menú dropdown
         const userButton = document.querySelector('.user-button');
         const dropdownMenu = document.querySelector('.dropdown-menu');
         
@@ -42,7 +43,7 @@ firebase.auth().onAuthStateChanged((user) => {
                 dropdownMenu.classList.toggle('show');
             });
 
-            // Cerrar el dropdown cuando se hace clic fuera
+            // Cerrar al hacer clic fuera
             document.addEventListener('click', (e) => {
                 if (!userButton.contains(e.target)) {
                     dropdownMenu.classList.remove('show');
@@ -57,26 +58,3 @@ firebase.auth().onAuthStateChanged((user) => {
         `;
     }
 });
-
-// Función auxiliar para manejar errores de autenticación
-function handleAuthError(error) {
-    console.error('Error de autenticación:', error);
-    let errorMessage = 'Ha ocurrido un error. Por favor, intenta de nuevo.';
-    
-    switch (error.code) {
-        case 'auth/invalid-email':
-            errorMessage = 'El correo electrónico no es válido.';
-            break;
-        case 'auth/user-disabled':
-            errorMessage = 'Esta cuenta ha sido deshabilitada.';
-            break;
-        case 'auth/user-not-found':
-            errorMessage = 'No existe una cuenta con este correo.';
-            break;
-        case 'auth/wrong-password':
-            errorMessage = 'Contraseña incorrecta.';
-            break;
-    }
-    
-    alert(errorMessage);
-}

@@ -54,6 +54,12 @@
 }
 
 /* Estilos para el menú de usuario */
+.header-login-register {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
 .user-menu {
     position: relative;
 }
@@ -63,12 +69,12 @@
     align-items: center;
     gap: 8px;
     padding: 8px 16px;
-    background: var(--accent-color);
+    background: var(--color-primary);
     border: none;
     border-radius: 4px;
     color: white;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
 }
 
 .user-button:hover {
