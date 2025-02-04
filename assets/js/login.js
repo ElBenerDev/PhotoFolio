@@ -136,5 +136,21 @@
   }
 
   window.addEventListener("load", initSwiper);
-
+// En tu función de login existente, después de verificar las credenciales
+if (loginExitoso) {
+  // Guardar datos en sesión mediante una llamada AJAX a PHP
+  fetch('php/login_session.php', {
+      method: 'POST',
+      body: JSON.stringify({
+          userId: response.userId,
+          username: response.username
+      }),
+      headers: {
+          'Content-Type': 'application/json'
+      }
+  })
+  .then(response => {
+      window.location.href = 'index.html'; // Redirigir a la página principal
+  });
+}
 })();
