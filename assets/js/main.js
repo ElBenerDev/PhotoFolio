@@ -83,6 +83,25 @@
           behavior: 'smooth'
         });
       }
+
+    // Cuando el documento esté listo
+    document.addEventListener('DOMContentLoaded', function() {
+      const startButton = document.querySelector('.btn-get-started');
+      if (startButton) {
+          startButton.addEventListener('click', function(e) {
+              e.preventDefault();
+              // Verificar si el usuario está autenticado
+              firebase.auth().onAuthStateChanged((user) => {
+                  if (user) {
+                      // Si está autenticado, ir a la galería
+                      window.location.href = 'gallery.html';
+                  } else {
+                      // Si no está autenticado, ir al login
+                      window.location.href = 'login.html';
+                  }
+              });
+          });
+      }
     });
-  
-  })();
+  }); 
+})();
