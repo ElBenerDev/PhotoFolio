@@ -105,6 +105,11 @@ firebase.auth().onAuthStateChanged((user) => {
             console.log('Usuario autenticado accediendo a la galería');
         }
 
+        const galleryButtons = document.querySelectorAll('.preview-gallery .auth-required');
+        galleryButtons.forEach(button => {
+            button.style.display = 'block';
+        });
+
     } else {
         // Usuario no logueado
         authHideElements.forEach(element => {
@@ -125,7 +130,13 @@ firebase.auth().onAuthStateChanged((user) => {
         if (window.location.pathname.includes('gallery.html')) {
             window.location.href = 'login.html';
         }
+
+        const galleryButtons = document.querySelectorAll('.preview-gallery .auth-required');
+        galleryButtons.forEach(button => {
+            button.style.display = 'none';
+        });
     }
+    
 
     // Manejar navegación al gallery
     const galleryLinks = document.querySelectorAll('a[href*="gallery.html"]');
