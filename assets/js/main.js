@@ -131,4 +131,20 @@
       });
   });
 
+  document.addEventListener('DOMContentLoaded', function() {
+    const galleryImages = document.querySelectorAll('.gallery-item img');
+    galleryImages.forEach(img => {
+      img.onerror = function() {
+        console.error('Error cargando imagen:', this.src);
+        this.style.backgroundColor = '#333';
+        this.style.padding = '20px';
+        this.alt = 'Error cargando imagen';
+      };
+      
+      img.onload = function() {
+        console.log('Imagen cargada correctamente:', this.src);
+      };
+    });
+  });
+
 })();

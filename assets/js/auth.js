@@ -12,6 +12,7 @@ firebase.auth().onAuthStateChanged((user) => {
     const loginRegisterDiv = document.querySelector('.header-login-register');
     const authElements = document.querySelectorAll('.auth-required');
     const authHideElements = document.querySelectorAll('.auth-hide');
+    console.log('Estado de autenticación:', user ? 'autenticado' : 'no autenticado');
 
     // Función para aplicar transiciones suaves
     const fadeElement = (element, show) => {
