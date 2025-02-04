@@ -86,22 +86,35 @@
 
     // Cuando el documento esté listo
     document.addEventListener('DOMContentLoaded', function() {
-      const startButton = document.querySelector('.btn-get-started');
-      if (startButton) {
-          startButton.addEventListener('click', function(e) {
-              e.preventDefault();
-              // Verificar si el usuario está autenticado
-              firebase.auth().onAuthStateChanged((user) => {
-                  if (user) {
-                      // Si está autenticado, ir a la galería
-                      window.location.href = 'gallery.html';
-                  } else {
-                      // Si no está autenticado, ir al login
-                      window.location.href = 'login.html';
-                  }
-              });
-          });
+      // Detectar iOS para aplicar fixes específicos
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      if (isIOS) {
+          document.body.classList.add('ios-scroll-fix');
       }
-    });
+  
+      // Mejorar el comportamiento del scroll en móviles
+      const smoothScroll = function(target) {
+          const element = document.querySelector(target);
+          if (element) {
+              window.scrollTo({
+                  top: element.offsetTop - 80,
+                  behavior: 'smooth'
+              });
+          }
+      };
+  
+      // Ajustar altura del hero en móviles
+      const adjustHeroHeight = function() {
+          const hero = document.querySelector('.hero');
+          if (hero && window.innerWidth <= 768) {
+              const windowHeight = window.innerHeight;
+              hero.style.minHeight = `${windowHeight * 0.7}px`;
+          }
+      };
+  
+      // Llamar a la función al cargar y al redimensionar
+      adjustHeroHeight();
+      window.addEventListener('resize', adjustHeroHeight);
+  });
   }); 
 })();
