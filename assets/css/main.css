@@ -617,3 +617,35 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
+
+
+
+.gallery .gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.gallery .gallery-item img {
+  width: 100%;
+  height: 300px; /* altura fija para todas las imágenes */
+  object-fit: cover;
+  transition: all 0.3s ease;
+}
+
+.gallery .gallery-links {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.3);
+  transition: all ease-in-out 0.3s;
+  z-index: 1;
+}
+
+.gallery .gallery-item:hover .gallery-links {
+  opacity: 1;
+}
+
+.gallery .gallery-item:hover img {
+  transform: scale(1.1);
+}
