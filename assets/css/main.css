@@ -299,7 +299,7 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   inset: 0;
   opacity: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.3);
   transition: all ease-in-out 0.3s;
   display: flex;
   align-items: center;
@@ -551,8 +551,8 @@ h1, h2, h3, h4, h5, h6 {
 /* Touch Device Optimizations */
 @media (hover: none) {
   .gallery .gallery-links {
-    opacity: 1;
-    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    background: rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -568,7 +568,7 @@ h1, h2, h3, h4, h5, h6 {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0);
   z-index: 1;
 }
 
