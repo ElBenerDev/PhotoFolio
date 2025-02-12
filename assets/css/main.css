@@ -191,77 +191,6 @@ h1, h2, h3, h4, h5, h6 {
   transition: all 0.3s ease;
 }
 
-/* Estilos para contenido premium */
-.premium-content img {
-  filter: blur(10px) !important; /* Aseguramos que siempre se aplique el blur */
-}
-
-.premium-content .gallery-links {
-  opacity: 1 !important; /* Aseguramos que los enlaces siempre sean visibles */
-  background: rgba(0, 0, 0, 0.7) !important; /* Fondo más oscuro para mejor legibilidad */
-}
-
-.premium-content .gallery-links::before {
-  content: '💎 Premium - Click para desbloquear';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-size: 1.2rem;
-  font-weight: 500;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  text-align: center;
-  width: 80%;
-}
-
-.premium-content:hover img {
-  filter: blur(15px) !important;
-}
-
-.gallery-links {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  background: rgba(0, 0, 0, 0.4);
-  transition: all 0.4s ease-in-out;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-}
-
-.gallery .gallery-item:hover .gallery-links {
-  opacity: 1;
-}
-
-/* Estilos mejorados para imágenes premium */
-.premium-content img {
-  filter: blur(8px); /* Blur inicial para contenido premium */
-  transition: filter 0.4s ease;
-}
-
-.premium-content:hover img {
-  filter: blur(12px); /* Aumenta el blur al hover en premium */
-}
-
-.premium-content .gallery-links {
-  background: rgba(0, 0, 0, 0.6); /* Fondo más oscuro para premium */
-  opacity: 1; /* Siempre visible para contenido premium */
-}
-
-.premium-content .gallery-links::before {
-  content: '💎 Premium';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-size: 1.2rem;
-  font-weight: 500;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
 /* Nuevos estilos para la animación de carga */
 .gallery-loader {
   text-align: center;
@@ -593,6 +522,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .premium-content .gallery-links {
+  opacity: 1 !important; /* Siempre visible para contenido premium */
   background: rgba(0, 0, 0, 0.5); /* Fondo más claro para que se vea el blur */
 }
 
@@ -606,6 +536,8 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.2rem;
   font-weight: 500;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  width: 80%;
+  text-align: center;
 }
 
 /* Cuando se hace hover sobre la imagen premium */
@@ -613,4 +545,19 @@ h1, h2, h3, h4, h5, h6 {
   filter: blur(15px); /* Aumenta el blur al hacer hover */
 }
 
+/* Asegurarse de que los enlaces de la galería tengan el estilo correcto */
+.gallery-links {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.4);
+  transition: all 0.4s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
 
+.gallery .gallery-item:hover .gallery-links {
+  opacity: 1;
+}
