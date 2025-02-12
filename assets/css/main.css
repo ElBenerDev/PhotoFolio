@@ -515,49 +515,80 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
-/* Estilos para imágenes premium */
-.premium-content img {
-  filter: blur(10px); /* Aplica el efecto de desenfoque */
-  transition: filter 0.3s ease;
+
+
+/* Estilos base para todas las imágenes */
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
 }
 
-.premium-content .gallery-links {
-  opacity: 1 !important; /* Siempre visible para contenido premium */
-  background: rgba(0, 0, 0, 0.5); /* Fondo más claro para que se vea el blur */
+.gallery-item img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  transition: all 0.3s ease;
 }
 
-.premium-content .gallery-links::before {
-  content: '💎 Premium';
+/* Estilos específicos para imágenes premium */
+.gallery-item.premium img {
+  filter: blur(8px);
+}
+
+/* Badge premium */
+.gallery-item.premium .premium-badge {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: white;
-  font-size: 1.2rem;
-  font-weight: 500;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  width: 80%;
-  text-align: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: gold;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  z-index: 3;
+  pointer-events: none;
+  border: 2px solid gold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
-/* Cuando se hace hover sobre la imagen premium */
-.premium-content:hover img {
-  filter: blur(15px); /* Aumenta el blur al hacer hover */
-}
-
-/* Asegurarse de que los enlaces de la galería tengan el estilo correcto */
-.gallery-links {
+/* Enlaces de la galería */
+.gallery-item .gallery-links {
   position: absolute;
-  inset: 0;
-  opacity: 0;
-  background: rgba(0, 0, 0, 0.4);
-  transition: all 0.4s ease-in-out;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: all 0.3s ease;
 }
 
-.gallery .gallery-item:hover .gallery-links {
+.gallery-item:hover .gallery-links {
   opacity: 1;
+}
+
+/* Botón premium */
+.gallery-item.premium .premium-link {
+  background-color: gold;
+  color: black;
+  padding: 10px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.gallery-item.premium .premium-link:hover {
+  background-color: #ffd700;
+  transform: scale(1.05);
+}
+
+.gallery-item.premium .premium-link i {
+  color: black;
 }

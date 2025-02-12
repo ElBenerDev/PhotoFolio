@@ -8,51 +8,64 @@ class GalleryLoader {
     }
 
     createGalleryItem(imagePath, isPremium = false) {
+        // Columna principal
         const col = document.createElement('div');
         col.className = 'col-xl-3 col-lg-4 col-md-6';
         
+        // Contenedor del item de galería
         const galleryItem = document.createElement('div');
-        galleryItem.className = `gallery-item h-100 ${isPremium ? 'premium-content' : ''}`;
+        galleryItem.className = `gallery-item h-100`;
         
-        const img = new Image();
+        if (isPremium) {
+            galleryItem.classList.add('premium');
+        }
+        
+        // Imagen
+        const img = document.createElement('img');
         img.className = 'img-fluid';
-        img.loading = 'lazy';
+        img.alt = 'Gallery Image';
+        img.src = imagePath;
         
+        // Links de la galería
         const galleryLinks = document.createElement('div');
         galleryLinks.className = 'gallery-links d-flex align-items-center justify-content-center';
         
-        img.onerror = () => {
-            col.remove();
-        };
+        if (isPremium) {
+            // Badge premium
+            const premiumBadge = document.createElement('div');
+            premiumBadge.className = 'premium-badge';
+            premiumBadge.textContent = 'PREMIUM';
+            galleryItem.appendChild(premiumBadge);
+            
+            // Link premium
+            galleryLinks.innerHTML = `
+                <a href="/premium" class="premium-link">
+                    <i class="bi bi-star-fill"></i>
+                    <span class="ms-2">Subscribe</span>
+                </a>
+            `;
+        } else {
+            galleryLinks.innerHTML = `
+                <a href="${imagePath}" title="Gallery Image" class="glightbox preview-link">
+                    <i class="bi bi-arrows-angle-expand"></i>
+                </a>
+            `;
+        }
         
-        img.onload = () => {
-            if (isPremium) {
-                galleryLinks.innerHTML = `
-                    <a href="premium.html" class="premium-link">
-                        <i class="bi bi-star-fill"></i>
-                    </a>
-                `;
-            } else {
-                galleryLinks.innerHTML = `
-                    <a href="${imagePath}" class="glightbox preview-link">
-                        <i class="bi bi-arrows-angle-expand"></i>
-                    </a>
-                `;
-            }
-            galleryItem.appendChild(img);
-            galleryItem.appendChild(galleryLinks);
-        };
-        
-        img.src = imagePath;
+        // Agregar elementos al DOM
+        galleryItem.appendChild(img);
+        galleryItem.appendChild(galleryLinks);
         col.appendChild(galleryItem);
+        
         return col;
     }
 
     async loadImagesFromDirectory(directoryPath, isPremium = false) {
         try {
-            // Intenta cargar el archivo index.json que contiene la lista de imágenes
             const response = await fetch(`${directoryPath}index.json`);
-            if (!response.ok) throw new Error('No se pudo cargar el índice de imágenes');
+            if (!response.ok) {
+                throw new Error(`No se pudo cargar el índice de imágenes de ${directoryPath}`);
+            }
             
             const data = await response.json();
             data.images.forEach(imageName => {
@@ -61,7 +74,7 @@ class GalleryLoader {
                 this.container.appendChild(galleryItem);
             });
         } catch (error) {
-            console.error('Error loading directory:', error);
+            console.error('Error loading images:', error);
         }
     }
 
@@ -75,17 +88,17 @@ class GalleryLoader {
                 </div>
             `;
 
-            // Cargar imágenes de ambas carpetas
+            // Cargar imágenes públicas y premium
             await Promise.all([
                 this.loadImagesFromDirectory(this.publicPath, false),
                 this.loadImagesFromDirectory(this.premiumPath, true)
             ]);
 
-            // Eliminar loader
+            // Remover loader
             const loader = this.container.querySelector('.gallery-loader');
             if (loader) loader.remove();
 
-            // Inicializar GLightbox
+            // Inicializar GLightbox solo para imágenes no premium
             GLightbox({
                 selector: '.glightbox',
                 touchNavigation: true,
