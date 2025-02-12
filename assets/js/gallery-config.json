@@ -1,0 +1,17 @@
+{
+    "images": [
+        "gallery-1.jpg",
+        "gallery-2.jpg",
+        "gallery-3.jpg",
+        "gallery-4.jpg",
+        "gallery-5.jpg",
+        "gallery-6.jpg",
+        "gallery-7.jpg",
+        "gallery-8.jpg"
+    ],
+    "premium_images": [
+        "premium-1.jpg",
+        "premium-2.jpg",
+        "premium-3.jpg"
+    ]
+}

@@ -1,0 +1,93 @@
+.premium-section {
+    padding: 120px 0;
+    min-height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                url('../img/gallery-bg.jpg') center/cover no-repeat;
+}
+
+.premium-card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+}
+
+.premium-card h2 {
+    color: #27a776;
+    margin-bottom: 30px;
+}
+
+.premium-features ul {
+    list-style: none;
+    padding: 0;
+    margin: 30px 0;
+}
+
+.premium-features li {
+    padding: 10px 0;
+    font-size: 1.1em;
+    color: #444;
+}
+
+.premium-features i {
+    color: #27a776;
+    margin-right: 10px;
+}
+
+.payment-section {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid #eee;
+}
+
+.payment-section h3 {
+    color: #27a776;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.payment-button {
+    transition: transform 0.3s ease;
+}
+
+.payment-button:hover {
+    transform: scale(1.05);
+}
+
+/* Estilos para contenido premium bloqueado en la galería */
+.premium-overlay {
+    position: relative;
+}
+
+.premium-overlay::before {
+    content: '🔒 Premium';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 2;
+}
+
+.premium-overlay img {
+    filter: blur(5px);
+    transition: filter 0.3s ease;
+}
+
+.premium-overlay:hover::after {
+    content: 'Hazte premium para ver';
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    white-space: nowrap;
+}

@@ -1,0 +1,40 @@
+/* Estilos para contenido premium bloqueado */
+.premium-overlay {
+    position: relative;
+}
+
+.premium-overlay::before {
+    content: '🔒 Premium';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 2;
+}
+
+.premium-overlay img {
+    filter: blur(5px);
+}
+
+.premium-overlay .gallery-links {
+    display: none !important;
+}
+
+.premium-overlay:hover::after {
+    content: 'Contenido Premium - Suscríbete para ver';
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    white-space: nowrap;
+    z-index: 2;
+}
