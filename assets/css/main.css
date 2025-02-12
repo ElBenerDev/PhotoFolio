@@ -17,7 +17,6 @@ body.mobile-nav-active {
   }
 }
 
-
 .auth-hide {
   transition: opacity 0.3s ease-in-out;
 }
@@ -67,7 +66,6 @@ a:hover {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-secondary);
 }
-
 /*--------------------------------------------------------------
 # Header Navigation
 --------------------------------------------------------------*/
@@ -164,109 +162,6 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 4px;
   min-width: 200px;
 }
-
-.navmenu .dropdown ul li {
-  min-width: 200px;
-}
-
-.navmenu .dropdown ul a {
-  padding: 10px 20px;
-  font-size: 15px;
-  text-transform: none;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.navmenu .dropdown ul a i {
-  font-size: 12px;
-}
-
-.navmenu .dropdown ul a:hover,
-.navmenu .dropdown ul .active:hover,
-.navmenu .dropdown ul li:hover > a {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.navmenu .dropdown:hover > ul {
-  opacity: 1;
-  visibility: visible;
-  top: 100%;
-}
-
-/* Mobile Navigation */
-.mobile-nav-toggle {
-  display: none;
-  color: #fff;
-  font-size: 28px;
-  cursor: pointer;
-  line-height: 0;
-  transition: 0.5s;
-  position: fixed;
-  right: 15px;
-  top: 15px;
-  z-index: 9998;
-}
-
-/*--------------------------------------------------------------
-# Hero Section
---------------------------------------------------------------*/
-.hero {
-  width: 100%;
-  min-height: 100vh;
-  background: url("../img/hero-bg.jpg") top center;
-  background-size: cover;
-  position: relative;
-  padding: 120px 0 60px 0;
-}
-
-.hero:after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-}
-
-.hero .container {
-  position: relative;
-  z-index: 1;
-  min-height: calc(100vh - 180px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hero h2 {
-  margin: 0 0 10px 0;
-  font-size: 48px;
-  font-weight: 700;
-  color: #fff;
-}
-
-.hero p {
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 30px;
-  font-size: 18px;
-}
-
-.hero .btn-get-started {
-  font-weight: 500;
-  font-size: 14px;
-  letter-spacing: 1px;
-  display: inline-block;
-  padding: 12px 36px;
-  border-radius: 50px;
-  transition: 0.5s;
-  color: #fff;
-  background: var(--color-primary);
-  box-shadow: 0 8px 28px rgba(39, 167, 118, 0.2);
-}
-
-.hero .btn-get-started:hover {
-  background: #32cf93;
-  box-shadow: 0 8px 28px rgba(39, 167, 118, 0.45);
-}
-
 /*--------------------------------------------------------------
 # Gallery Section
 --------------------------------------------------------------*/
@@ -280,51 +175,100 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0 24px;
 }
 
+/* Nuevo estilo base para todos los items de la galería */
 .gallery .gallery-item {
   position: relative;
   overflow: hidden;
   border-radius: 10px;
   margin-bottom: 30px;
+  transition: transform 0.3s ease-in-out;
 }
 
+/* Nuevo estilo mejorado para las imágenes con blur por defecto */
 .gallery .gallery-item img {
   width: 100%;
-  min-height: 300px;
-  max-height: 500px;
+  height: 300px;
   object-fit: cover;
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
+  filter: blur(3px); /* Blur inicial para todas las imágenes */
+  transform: scale(1.02); /* Ligero zoom inicial para evitar bordes blancos */
 }
 
+/* Nuevo estilo para el hover de las imágenes */
+.gallery .gallery-item:hover img {
+  filter: blur(0); /* Quita el blur al hacer hover */
+  transform: scale(1.1); /* Aumenta el zoom al hover */
+}
+
+/* Estilo mejorado para los enlaces de la galería */
 .gallery .gallery-links {
   position: absolute;
   inset: 0;
   opacity: 0;
-  background: rgba(0, 0, 0, 0.3);
-  transition: all ease-in-out 0.3s;
+  background: rgba(0, 0, 0, 0.4); /* Fondo más oscuro */
+  transition: all 0.4s ease-in-out;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 2;
 }
 
 .gallery .gallery-links a {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.8);
   font-size: 24px;
   margin: 0 8px;
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
 
 .gallery .gallery-links a:hover {
   color: #fff;
+  transform: scale(1.2);
 }
 
 .gallery .gallery-item:hover .gallery-links {
   opacity: 1;
 }
 
-.gallery .gallery-item:hover img {
-  transform: scale(1.1);
+/* Estilos mejorados para imágenes premium */
+.premium-content img {
+  filter: blur(8px); /* Blur inicial para contenido premium */
+  transition: filter 0.4s ease;
 }
 
+.premium-content:hover img {
+  filter: blur(12px); /* Aumenta el blur al hover en premium */
+}
+
+.premium-content .gallery-links {
+  background: rgba(0, 0, 0, 0.6); /* Fondo más oscuro para premium */
+  opacity: 1; /* Siempre visible para contenido premium */
+}
+
+.premium-content .gallery-links::before {
+  content: '💎 Premium';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Nuevos estilos para la animación de carga */
+.gallery-loader {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+}
+
+.gallery-loader i {
+  font-size: 2rem;
+  color: var(--color-primary);
+  animation: spin 1s linear infinite;
+}
 /* Gallery Filters */
 .gallery-filters {
   padding: 0;
@@ -392,15 +336,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Preloader */
-#preloader {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  overflow: hidden;
-  background: #000;
-  transition: all 0.6s ease-out;
-}
-
 #preloader {
   position: fixed;
   inset: 0;
