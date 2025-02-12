@@ -517,6 +517,9 @@ h1, h2, h3, h4, h5, h6 {
 
 
 
+
+
+
 /* Estilos base para todas las imágenes */
 .gallery-item {
   position: relative;
@@ -536,22 +539,52 @@ h1, h2, h3, h4, h5, h6 {
   filter: blur(8px);
 }
 
-/* Badge premium */
-.gallery-item.premium .premium-badge {
+/* Contenedor premium */
+.gallery-item.premium .premium-container {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.7);
-  color: gold;
-  padding: 10px 20px;
-  border-radius: 20px;
-  font-weight: bold;
   z-index: 3;
-  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Badge premium como botón */
+.gallery-item.premium .premium-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 15px 25px;
+  border-radius: 20px;
+  text-decoration: none;
   border: 2px solid gold;
+  transition: all 0.3s ease;
+}
+
+.gallery-item.premium .premium-badge:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.gallery-item.premium .badge-text {
+  color: gold;
+  font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 2px;
+  margin-bottom: 5px;
+}
+
+/* Botón de pago */
+.gallery-item.premium .payment-button {
+  max-width: 150px;
+  height: auto;
+  display: block;
+  margin-top: 5px;
 }
 
 /* Enlaces de la galería */
@@ -571,24 +604,4 @@ h1, h2, h3, h4, h5, h6 {
 
 .gallery-item:hover .gallery-links {
   opacity: 1;
-}
-
-/* Botón premium */
-.gallery-item.premium .premium-link {
-  background-color: gold;
-  color: black;
-  padding: 10px 20px;
-  border-radius: 25px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: all 0.3s ease;
-}
-
-.gallery-item.premium .premium-link:hover {
-  background-color: #ffd700;
-  transform: scale(1.05);
-}
-
-.gallery-item.premium .premium-link i {
-  color: black;
 }

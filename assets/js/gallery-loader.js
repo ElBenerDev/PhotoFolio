@@ -31,19 +31,25 @@ class GalleryLoader {
         galleryLinks.className = 'gallery-links d-flex align-items-center justify-content-center';
         
         if (isPremium) {
-            // Badge premium
-            const premiumBadge = document.createElement('div');
-            premiumBadge.className = 'premium-badge';
-            premiumBadge.textContent = 'PREMIUM';
-            galleryItem.appendChild(premiumBadge);
+            // Contenedor centrado para el badge y el botón
+            const premiumContainer = document.createElement('div');
+            premiumContainer.className = 'premium-container text-center';
             
-            // Link premium
-            galleryLinks.innerHTML = `
-                <a href="/premium" class="premium-link">
-                    <i class="bi bi-star-fill"></i>
-                    <span class="ms-2">Subscribe</span>
-                </a>
+            // Badge premium como botón
+            const premiumBadge = document.createElement('a');
+            premiumBadge.href = 'https://pay.coingate.com/pay/PremiumPayment';
+            premiumBadge.target = '_blank';
+            premiumBadge.rel = 'noopener noreferrer nofollow';
+            premiumBadge.className = 'premium-badge';
+            
+            // Contenido del badge
+            premiumBadge.innerHTML = `
+                <span class="badge-text">PREMIUM</span>
+                <img src="https://assets.coingate.com/images/buttons/2.png" alt="CoinGate Payment Button" class="payment-button">
             `;
+            
+            premiumContainer.appendChild(premiumBadge);
+            galleryItem.appendChild(premiumContainer);
         } else {
             galleryLinks.innerHTML = `
                 <a href="${imagePath}" title="Gallery Image" class="glightbox preview-link">
