@@ -27,6 +27,68 @@
   <!-- Main CSS Files -->
   <link href="assets/css/main.css" rel="stylesheet">
   <link href="assets/css/header.css" rel="stylesheet">
+
+  <style>
+    /* Estilos adicionales para la galería */
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    
+    .gallery-item img {
+      transition: transform 0.3s ease;
+      width: 100%;
+      height: 300px; /* Altura fija para todas las imágenes */
+      object-fit: cover; /* Mantiene la proporción y cubre el espacio */
+    }
+    
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .gallery-links {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .gallery-item:hover .gallery-links {
+      opacity: 1;
+    }
+
+    .gallery-links a {
+      color: white;
+      font-size: 1.5rem;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-links a:hover {
+      transform: scale(1.2);
+    }
+
+    /* Estilo para el loader */
+    .gallery-loader {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .gallery-loader i {
+      font-size: 2rem;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 
 <body class="index-page">
@@ -40,10 +102,10 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-            <li><a href="index.html">Home</a></li>
-            <li class="auth-required" style="display: none;">
-                <a href="gallery.html" class="active">Gallery</a>
-            </li>
+          <li><a href="index.html">Home</a></li>
+          <li class="auth-required" style="display: none;">
+            <a href="gallery.html" class="active">Gallery</a>
+          </li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -63,8 +125,8 @@
   </header>
 
   <main class="main">
-    <!-- Gallery Header Section - Añadimos padding-top para separarlo del header -->
-    <section class="page-header" style="padding-top: 120px;"> <!-- Añadido padding-top -->
+    <!-- Gallery Header Section -->
+    <section class="page-header" style="padding-top: 120px;">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-6 text-center">
@@ -78,8 +140,22 @@
     <!-- Gallery Section -->
     <section id="gallery" class="gallery preview-gallery">
       <div class="container-fluid">
+        <!-- Controles de la galería -->
+        <div class="row mb-4">
+          <div class="col-12 text-center">
+            <button class="btn btn-primary me-2" onclick="window.galleryLoader.shuffleGallery()">
+              <i class="bi bi-shuffle"></i> Shuffle Gallery
+            </button>
+          </div>
+        </div>
+        
+        <!-- Contenedor de la galería -->
         <div class="row gy-4 justify-content-center" id="gallery-container">
-          <!-- Las imágenes se cargarán aquí dinámicamente -->
+          <!-- Loader inicial -->
+          <div class="gallery-loader">
+            <i class="bi bi-arrow-repeat"></i>
+            <p>Loading gallery...</p>
+          </div>
         </div>
       </div>
     </section>
@@ -124,8 +200,8 @@
   <script src="assets/js/firebase-config.js"></script>
   <script src="assets/js/auth.js"></script>
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/gallery-loader.js"></script>
 
-  <!-- Initialize Plugins -->
   <script>
     // Initialize AOS
     AOS.init({
@@ -135,25 +211,19 @@
       mirror: false
     });
 
-    // Initialize GLightbox
-    const lightbox = GLightbox({
-      selector: '.glightbox',
-      touchNavigation: true,
-      loop: true,
-      autoplayVideos: true
+    // Initialize Gallery
+    document.addEventListener('DOMContentLoaded', () => {
+      // Crear una instancia global para poder acceder desde los botones
+      window.galleryLoader = new GalleryLoader('gallery-container');
+      
+      // Initialize GLightbox después de cargar las imágenes
+      const lightbox = GLightbox({
+        selector: '.glightbox',
+        touchNavigation: true,
+        loop: true,
+        autoplayVideos: true
+      });
     });
   </script>
-
-  <!-- Justo antes del cierre de </body> -->
-<script src="assets/js/gallery-loader.js"></script>
-<script>
-    // Inicializar el cargador de la galería
-    document.addEventListener('DOMContentLoaded', () => {
-        const galleryLoader = new GalleryLoader(
-            'gallery-container',
-            'assets/img/gallery/'
-        );
-    });
-</script>
 </body>
 </html>

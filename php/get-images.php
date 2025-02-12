@@ -1,55 +1,38 @@
 <?php
 header('Content-Type: application/json');
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
-// Definir la ruta base correctamente
-$baseDir = __DIR__ . '/../../img/gallery/';
+// Configurar CORS si es necesario
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET');
 
-function getImagesFromDirectory($dir) {
+// Directorios de imágenes
+$publicDir = '../img/gallery/public/';
+$premiumDir = '../img/gallery/premium/';
+
+// Función para obtener archivos de imagen de un directorio
+function getImagesFromDir($dir) {
     $images = [];
-    $valid_extensions = ['jpg', 'jpeg', 'png', 'gif'];
-    
-    if (!is_dir($dir)) {
-        return ['error' => "Directory not found: $dir"];
-    }
-
-    try {
-        $files = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($dir),
-            RecursiveIteratorIterator::LEAVES_ONLY
-        );
-
+    if (is_dir($dir)) {
+        $files = scandir($dir);
         foreach ($files as $file) {
-            if ($file->isFile()) {
-                $extension = strtolower(pathinfo($file->getFilename(), PATHINFO_EXTENSION));
-                if (in_array($extension, $valid_extensions)) {
-                    // Obtener la ruta relativa
-                    $relativePath = str_replace('\\', '/', substr($file->getPathname(), strlen($dir)));
-                    $images[] = $relativePath;
+            if ($file !== '.' && $file !== '..' && !is_dir($dir . $file)) {
+                // Verificar si es una imagen
+                $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+                if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif'])) {
+                    $images[] = $file;
                 }
             }
         }
-    } catch (Exception $e) {
-        return ['error' => $e->getMessage()];
     }
-    
     return $images;
 }
 
-// Verificar que los directorios existen
-$publicDir = $baseDir . 'public';
-$premiumDir = $baseDir . 'premium';
-
-if (!is_dir($baseDir)) {
-    die(json_encode(['error' => "Base directory not found: $baseDir"]));
+try {
+    $response = [
+        'images' => getImagesFromDir($publicDir),
+        'premium_images' => getImagesFromDir($premiumDir)
+    ];
+    echo json_encode($response);
+} catch (Exception $e) {
+    echo json_encode(['error' => $e->getMessage()]);
 }
-
-$result = [
-    'status' => 'success',
-    'baseDir' => $baseDir,
-    'images' => getImagesFromDirectory($publicDir),
-    'premium_images' => getImagesFromDirectory($premiumDir)
-];
-
-echo json_encode($result);
