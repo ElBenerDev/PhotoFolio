@@ -8,40 +8,45 @@ class GalleryLoader {
     }
 
     createGalleryItem(imagePath, isPremium = false) {
-        const col = document.createElement('div');
-        col.className = 'col-xl-3 col-lg-4 col-md-6';
-        
-        const premiumClass = isPremium ? 'premium-content' : '';
-        
-        const img = new Image();
-        img.className = 'img-fluid';
-        img.loading = 'lazy';
-        
-        const galleryItem = document.createElement('div');
-        galleryItem.className = `gallery-item h-100 ${premiumClass}`;
-        
-        const galleryLinks = document.createElement('div');
-        galleryLinks.className = 'gallery-links d-flex align-items-center justify-content-center';
-        
-        img.onerror = () => {
-            col.remove(); // Eliminar el elemento si la imagen no se puede cargar
-        };
-        
-        img.onload = () => {
+    const col = document.createElement('div');
+    col.className = 'col-xl-3 col-lg-4 col-md-6';
+    
+    const galleryItem = document.createElement('div');
+    galleryItem.className = `gallery-item h-100 ${isPremium ? 'premium-content' : ''}`;
+    
+    const img = new Image();
+    img.className = 'img-fluid';
+    img.loading = 'lazy';
+    
+    const galleryLinks = document.createElement('div');
+    galleryLinks.className = 'gallery-links d-flex align-items-center justify-content-center';
+    
+    img.onerror = () => {
+        col.remove();
+    };
+    
+    img.onload = () => {
+        if (isPremium) {
             galleryLinks.innerHTML = `
-                <a href="${isPremium ? '#' : imagePath}" class="glightbox preview-link ${isPremium ? 'disabled' : ''}" ${isPremium ? 'onclick="return false;"' : ''}>
+                <a href="premium.html" class="premium-link">
+                    <i class="bi bi-star-fill"></i>
+                </a>
+            `;
+        } else {
+            galleryLinks.innerHTML = `
+                <a href="${imagePath}" class="glightbox preview-link">
                     <i class="bi bi-arrows-angle-expand"></i>
                 </a>
-                ${isPremium ? '<a href="premium.html" class="premium-link"><i class="bi bi-star-fill"></i></a>' : ''}
             `;
-            galleryItem.appendChild(img);
-            galleryItem.appendChild(galleryLinks);
-        };
-        
-        img.src = imagePath;
-        col.appendChild(galleryItem);
-        return col;
-    }
+        }
+        galleryItem.appendChild(img);
+        galleryItem.appendChild(galleryLinks);
+    };
+    
+    img.src = imagePath;
+    col.appendChild(galleryItem);
+    return col;
+}
 
     async loadImagesFromDirectory(directoryPath, isPremium = false) {
         try {

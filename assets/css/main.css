@@ -181,48 +181,54 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
   border-radius: 10px;
   margin-bottom: 30px;
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease;
 }
 
-/* Nuevo estilo mejorado para las imágenes con blur por defecto */
 .gallery .gallery-item img {
   width: 100%;
   height: 300px;
   object-fit: cover;
-  transition: all 0.5s ease;
-  filter: blur(3px); /* Blur inicial para todas las imágenes */
-  transform: scale(1.02); /* Ligero zoom inicial para evitar bordes blancos */
+  transition: all 0.3s ease;
 }
 
-/* Nuevo estilo para el hover de las imágenes */
-.gallery .gallery-item:hover img {
-  filter: blur(0); /* Quita el blur al hacer hover */
-  transform: scale(1.1); /* Aumenta el zoom al hover */
+/* Estilos para contenido premium */
+.premium-content img {
+  filter: blur(10px) !important; /* Aseguramos que siempre se aplique el blur */
 }
 
-/* Estilo mejorado para los enlaces de la galería */
-.gallery .gallery-links {
+.premium-content .gallery-links {
+  opacity: 1 !important; /* Aseguramos que los enlaces siempre sean visibles */
+  background: rgba(0, 0, 0, 0.7) !important; /* Fondo más oscuro para mejor legibilidad */
+}
+
+.premium-content .gallery-links::before {
+  content: '💎 Premium - Click para desbloquear';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  width: 80%;
+}
+
+.premium-content:hover img {
+  filter: blur(15px) !important;
+}
+
+.gallery-links {
   position: absolute;
   inset: 0;
   opacity: 0;
-  background: rgba(0, 0, 0, 0.4); /* Fondo más oscuro */
+  background: rgba(0, 0, 0, 0.4);
   transition: all 0.4s ease-in-out;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2;
-}
-
-.gallery .gallery-links a {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 24px;
-  margin: 0 8px;
-  transition: all 0.3s ease;
-}
-
-.gallery .gallery-links a:hover {
-  color: #fff;
-  transform: scale(1.2);
 }
 
 .gallery .gallery-item:hover .gallery-links {
@@ -555,12 +561,6 @@ h1, h2, h3, h4, h5, h6 {
 
 
 
-.gallery .gallery-item {
-  position: relative;
-  overflow: hidden;
-  border-radius: 10px;
-}
-
 .gallery .gallery-item img {
   width: 100%;
   height: 300px; /* altura fija para todas las imágenes */
@@ -612,3 +612,5 @@ h1, h2, h3, h4, h5, h6 {
 .premium-content:hover img {
   filter: blur(15px); /* Aumenta el blur al hacer hover */
 }
+
+
