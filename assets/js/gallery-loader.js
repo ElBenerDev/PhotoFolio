@@ -28,31 +28,41 @@ class GalleryLoader {
     }
 
     isPremiumUser() {
-        // Verificar si el usuario tiene acceso premium
-        // Esto podría ser mediante localStorage, Firebase, o tu sistema de autenticación
         return localStorage.getItem('isPremiumUser') === 'true';
     }
 
     async loadGallery() {
         try {
-            const response = await fetch('assets/js/gallery-config.json');
+            const response = await fetch('assets/php/get-images.php');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             const data = await response.json();
             
+            // Verificar si hay errores en la respuesta
+            if (data.error) {
+                throw new Error(data.error);
+            }
+    
             // Limpiar el contenedor
             this.container.innerHTML = '';
             
             // Cargar imágenes públicas
-            data.public_images.forEach(imageName => {
-                const galleryItem = this.createGalleryItem(this.publicPath + imageName);
-                this.container.appendChild(galleryItem);
-            });
-
+            if (Array.isArray(data.images)) {
+                data.images.forEach(imagePath => {
+                    const galleryItem = this.createGalleryItem(this.publicPath + imagePath);
+                    this.container.appendChild(galleryItem);
+                });
+            }
+    
             // Cargar imágenes premium
-            data.premium_images.forEach(imageName => {
-                const galleryItem = this.createGalleryItem(this.premiumPath + imageName, true);
-                this.container.appendChild(galleryItem);
-            });
-
+            if (Array.isArray(data.premium_images)) {
+                data.premium_images.forEach(imagePath => {
+                    const galleryItem = this.createGalleryItem(this.premiumPath + imagePath, true);
+                    this.container.appendChild(galleryItem);
+                });
+            }
+    
             // Reinicializar GLightbox
             const lightbox = GLightbox({
                 selector: '.glightbox',
@@ -60,25 +70,13 @@ class GalleryLoader {
                 loop: true,
                 autoplayVideos: true
             });
-
-            // Aplicar bloqueo a contenido premium si el usuario no es premium
+    
+            // Aplicar bloqueo a contenido premium
             this.updatePremiumContent();
-
+    
         } catch (error) {
             console.error('Error loading gallery:', error);
+            this.container.innerHTML = `<div class="alert alert-danger">Error loading gallery: ${error.message}</div>`;
         }
-    }
-
-    updatePremiumContent() {
-        const premiumItems = document.querySelectorAll('.premium-content');
-        const isPremium = this.isPremiumUser();
-
-        premiumItems.forEach(item => {
-            if (!isPremium) {
-                item.classList.add('premium-overlay');
-            } else {
-                item.classList.remove('premium-overlay');
-            }
-        });
     }
 }
