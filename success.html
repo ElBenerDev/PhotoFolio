@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>¡Pago Exitoso! - PhotoFolio</title>
+    <!-- Existing CSS -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/main.css" rel="stylesheet">
+</head>
+<body>
+    <main class="main">
+        <section class="section">
+            <div class="container text-center">
+                <div class="success-message" style="margin: 50px auto; max-width: 600px;">
+                    <i class="bi bi-check-circle" style="font-size: 64px; color: #28a745;"></i>
+                    <h2>¡Pago Completado!</h2>
+                    <p>Tu acceso premium ha sido activado.</p>
+                    <a href="/gallery.html" class="btn btn-primary mt-4">Ver Contenido Premium</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Activar acceso premium
+        localStorage.setItem('premium_access', 'true');
+    </script>
+</body>
+</html>

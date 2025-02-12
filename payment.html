@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Premium Access - PhotoFolio</title>
+
+    <!-- Existing CSS -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/css/main.css" rel="stylesheet">
+    
+    <style>
+        .payment-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        .price-tag {
+            font-size: 32px;
+            font-weight: bold;
+            color: #fff;
+            margin: 20px 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .features-list {
+            margin: 30px 0;
+            text-align: left;
+        }
+        .features-list li {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            color: #fff;
+        }
+        .features-list i {
+            color: #4CAF50;
+            margin-right: 10px;
+        }
+        .payment-button-container {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+        }
+        .payment-button-container img {
+            transition: transform 0.3s ease;
+            max-width: 240px;
+        }
+        .payment-button-container img:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header id="header" class="header d-flex align-items-center sticky-top">
+        <!-- Tu header existente -->
+    </header>
+
+    <main class="main">
+        <section class="section">
+            <div class="container">
+                <div class="payment-container text-center">
+                    <h2>Acceso Premium</h2>
+                    <p class="lead">Desbloquea todo el contenido exclusivo</p>
+                    
+                    <div class="price-tag">
+                        $10 USD
+                    </div>
+
+                    <ul class="features-list list-unstyled">
+                        <li>
+                            <i class="bi bi-check-circle-fill"></i>
+                            Acceso inmediato al contenido premium
+                        </li>
+                        <li>
+                            <i class="bi bi-check-circle-fill"></i>
+                            Contenido sin restricciones
+                        </li>
+                        <li>
+                            <i class="bi bi-check-circle-fill"></i>
+                            Imágenes en alta calidad
+                        </li>
+                        <li>
+                            <i class="bi bi-check-circle-fill"></i>
+                            Pago único - sin suscripciones
+                        </li>
+                    </ul>
+
+                    <div class="payment-button-container">
+                        <p class="mb-3">Paga con tu criptomoneda preferida</p>
+                        <!-- Tu botón de CoinGate -->
+                        <a href="https://pay.coingate.com/pay/PremiumPayment"
+                           rel="noopener noreferrer nofollow" 
+                           target="_blank"
+                           id="payment-button">
+                            <img alt="CoinGate Payment Button" 
+                                 src="https://assets.coingate.com/images/buttons/pay.png"
+                                 class="img-fluid"/>
+                        </a>
+                    </div>
+
+                    <p class="small text-muted mt-4">
+                        El acceso será activado automáticamente después del pago
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer" class="footer">
+        <!-- Tu footer existente -->
+    </footer>
+
+    <script>
+        // Escuchar el mensaje de la ventana de pago
+        window.addEventListener('message', function(event) {
+            if (event.data.success) {
+                // Si el pago fue exitoso
+                localStorage.setItem('premium_access', 'true');
+                window.location.href = '/gallery.html';
+            }
+        });
+
+        // Evento de clic en el botón de pago
+        document.getElementById('payment-button').addEventListener('click', function() {
+            // Puedes agregar analíticas o tracking aquí si lo deseas
+            console.log('Payment initiated');
+        });
+    </script>
+</body>
+</html>
