@@ -649,3 +649,31 @@ h1, h2, h3, h4, h5, h6 {
 .gallery .gallery-item:hover img {
   transform: scale(1.1);
 }
+
+
+/* Estilos para imágenes premium */
+.premium-content img {
+  filter: blur(10px); /* Aplica el efecto de desenfoque */
+  transition: filter 0.3s ease;
+}
+
+.premium-content .gallery-links {
+  background: rgba(0, 0, 0, 0.5); /* Fondo más claro para que se vea el blur */
+}
+
+.premium-content .gallery-links::before {
+  content: '💎 Premium';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Cuando se hace hover sobre la imagen premium */
+.premium-content:hover img {
+  filter: blur(15px); /* Aumenta el blur al hacer hover */
+}

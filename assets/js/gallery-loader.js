@@ -29,9 +29,10 @@ class GalleryLoader {
         
         img.onload = () => {
             galleryLinks.innerHTML = `
-                <a href="${imagePath}" class="glightbox preview-link">
+                <a href="${isPremium ? '#' : imagePath}" class="glightbox preview-link ${isPremium ? 'disabled' : ''}" ${isPremium ? 'onclick="return false;"' : ''}>
                     <i class="bi bi-arrows-angle-expand"></i>
                 </a>
+                ${isPremium ? '<a href="premium.html" class="premium-link"><i class="bi bi-star-fill"></i></a>' : ''}
             `;
             galleryItem.appendChild(img);
             galleryItem.appendChild(galleryLinks);
